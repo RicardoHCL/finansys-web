@@ -1,0 +1,69 @@
+<app-bread-crumb [items]="[{text: 'Relatório Mensal'}]"></app-bread-crumb>
+<app-page-header [page-title]="'Relatório Mensal'" [buttons]="[{text: '', link: '', class: ''}]" [show-btn]="false">
+</app-page-header>
+
+<div class="card">
+  <div class="card-header">
+    Selecione o Mês e o Ano para gerar o relatório
+  </div>
+
+  <div class="card-body">
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        <label for="initialDate">Data</label>
+        <p-calendar #initialDate id="initialDate" 
+          inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBr" [showButtonBar]="true">
+        </p-calendar>        
+      </div>
+ 
+      <div class="form-group col-md-6">
+          <label for="finalDate">Data</label>
+          <p-calendar #finalDate id="finalDate" 
+            inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBr" [showButtonBar]="true">
+          </p-calendar>        
+        </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md">
+        <button type="button" (click)="generateReports()" class="btn btn-primary float-right">Gerar Relatório</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card-deck mt-5 mb-5">
+  <div class="card text-center text-white bg-success">
+    <div class="card-header">TOTAL DE RECEITAS</div>
+    <div class="card-body">
+      <h3 class="card-title">{{reveneuTotal}}</h3>
+    </div>
+  </div>
+
+  <div class="card text-center text-white bg-danger">
+    <div class="card-header">TOTAL DE DESPESA</div>
+    <div class="card-body">
+      <h3 class="card-title">{{expenseTotal}}</h3>
+    </div>
+  </div>
+
+  <div class="card text-center text-white bg-info">
+    <div class="card-header">SALDO TOTAL</div>
+    <div class="card-body">
+      <h3 class="card-title">{{balance}}</h3>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="row mt- mb-4">
+  <div class="col-md-6">
+    <p-chart type="bar" [data]="reveneuChartData" [options]="chartOptions"></p-chart>
+  </div>
+  <div class="col-md-6">
+      <p-chart type="bar" [data]="expenseChartData" [options]="chartOptions"></p-chart>
+  </div>
+
+</div>
