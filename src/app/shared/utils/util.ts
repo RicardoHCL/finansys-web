@@ -26,6 +26,11 @@ export class Util {
         }
     }
 
+    // Converte data no padrão DD/MM/AAAA para DD-MM-AAAA
+    static formatDate(date: string) {    
+        return date.replace("/", "-").replace("/", "-");
+    }
+
     // Configuração para mascara de moeda brasileira para o campo de valor
     static imaskConfig() {
         return {

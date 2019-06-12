@@ -6,6 +6,7 @@ import { Entry } from '../../entries/classes/entry.model';
 import { Category } from '../../categories/classes/category.model';
 import { EntryService } from '../../entries/classes/entry.service';
 import { CategoryService } from '../../categories/classes/category.service';
+import { Calendar } from 'primeng/calendar';
 
 @Component({
   selector: 'app-reports',
@@ -39,8 +40,8 @@ export class ReportsComponent implements OnInit {
     }
   }
 
-  @ViewChild('initialDate') initialDate: ElementRef = null;
-  @ViewChild('finalDate') finalDate: ElementRef = null;
+   @ViewChild('initialDate') initialDate: Calendar;
+   @ViewChild('finalDate') finalDate: Calendar;
 
   constructor(private entryService: EntryService, private categoryService: CategoryService) {
 
@@ -50,14 +51,14 @@ export class ReportsComponent implements OnInit {
     this.categoryService.getAll().subscribe(categories => this.categories = categories);
   }
 
-  generateReports() {
-    const initialDate = this.initialDate.nativeElement.value;
-    const finalDate = this.finalDate.nativeElement.value;
-
+  generateReports() {         
+    const initialDate = this.initialDate.inputFieldValue;
+    const finalDate = this.finalDate.inputFieldValue;
+    
     if (!initialDate || !finalDate) {
       alert("Favor informar o período para gerar os relatórios!")
-    } else {
-      this.entryService.getReportsForPeriods(initialDate, finalDate).subscribe(this.setValues.bind(this))
+    } else {      
+      this.entryService.getReportsForPeriods(Util.formatDate(initialDate), Util.formatDate(finalDate)).subscribe(this.setValues.bind(this))
     }
   }
 
