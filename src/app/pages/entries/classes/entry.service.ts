@@ -20,7 +20,7 @@ export class EntryService extends BaseReourceService<Entry> {
   getReportsForPeriods(initialDate: string, finalDate: string): Observable<Entry[]> {
     const url = `${this.apiPathReports}/${initialDate}/${finalDate}`;
     return this.http.get(url).pipe(
-        map(this.jsonDataToResource.bind(this)),
+        map(this.jsonDataToResources.bind(this)),
         catchError(this.handleError)
     )
   }

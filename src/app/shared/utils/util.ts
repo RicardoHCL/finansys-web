@@ -27,8 +27,17 @@ export class Util {
     }
 
     // Converte data no padrão DD/MM/AAAA para DD-MM-AAAA
-    static formatDate(date: string) {    
+    static formatDate(date: string) {
         return date.replace("/", "-").replace("/", "-");
+    }
+
+    // Colocar mascara de moeda brasileira R$ X.XXX,XX
+    static formatForCurrency() {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            minimumFractionDigits: 2,
+        });
     }
 
     // Configuração para mascara de moeda brasileira para o campo de valor
@@ -42,5 +51,5 @@ export class Util {
             radix: ','
         }
     }
-    
+
 }
