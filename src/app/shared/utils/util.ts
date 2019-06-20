@@ -2,6 +2,15 @@ export class Util {
 
     constructor() { }
 
+    // Formata uma string para o padrão de moeda Brasileira Acrescentando o prefixo R$ e tratando valor 0
+    static formatRealWhitValueZero(value: string) {
+        if (value == '0') {
+            return 'R$ 0,00';
+        }
+
+        return 'R$ ' + this.formatReal(value);
+    }
+
     // Formata uma string para o padrão de moeda Brasileira.
     static formatReal(value: string) {
         var tmp = value.replace('.', '');

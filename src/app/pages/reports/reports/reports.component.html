@@ -1,5 +1,5 @@
-<app-bread-crumb [items]="[{text: 'Relatório Mensal'}]"></app-bread-crumb>
-<app-page-header [page-title]="'Relatório Mensal'" [buttons]="[{text: '', link: '', class: ''}]" [show-btn]="false">
+<app-bread-crumb [items]="[{text: 'Relatório Periódico'}]"></app-bread-crumb>
+<app-page-header [page-title]="'Relatório Periódico'" [buttons]="[{text: '', link: '', class: ''}]" [show-btn]="false">
 </app-page-header>
 
 <div class="card">
@@ -11,14 +11,14 @@
     <div class="form-row">
 
       <div class="form-group col-md-6">
-        <label for="initialDate">Data</label>
+        <label for="initialDate" class="mr-3">Data Inicial</label>
         <p-calendar #initialDate id="initialDate" 
           inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBr" [showButtonBar]="true">
         </p-calendar>        
       </div>
  
       <div class="form-group col-md-6">
-          <label for="finalDate">Data</label>
+          <label for="finalDate" class="mr-3">Data Final</label>
           <p-calendar #finalDate id="finalDate" 
             inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBr" [showButtonBar]="true">
           </p-calendar>        

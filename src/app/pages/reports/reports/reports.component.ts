@@ -20,19 +20,26 @@ export class ReportsComponent {
 
   expenseChartData: any;
   reveneuChartData: any;
-  response: any[] = [];
+  response: any[] = [];  
 
   // Especific Methods (Public) 
 
   ptBr = Util.calendarPtBr();
-
+  
   chartOptions = {
     scales: {
       yAxes: [{
         ticks: {
-          beginAtZero: true
+          beginAtZero: true,
+          callback: function(value, index, values) {
+            return value > 1 || (values.length < 10) ? Util.formatRealWhitValueZero(value.toString()) : value;
         }
-      }]
+        }
+      }],
+      xAxes: [{
+        categoryPercentage: 0.5,
+        barPercentage: 0.5
+    }]
     }
   }
 
@@ -105,7 +112,7 @@ export class ReportsComponent {
         label: title,
         backgroundColor: color,
         data: chartData.map(item => item.totalAmount)
-      }]
+      }]      
     }
 
   }
