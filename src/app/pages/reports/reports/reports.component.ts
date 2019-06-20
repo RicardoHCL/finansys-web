@@ -1,11 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 
 import { Util } from 'src/app/shared/utils/util';
 import currencyFormatter from "currency-formatter";
-import { Entry } from '../../entries/classes/entry.model';
-import { Category } from '../../categories/classes/category.model';
 import { EntryService } from '../../entries/classes/entry.service';
-import { CategoryService } from '../../categories/classes/category.service';
 import { Calendar } from 'primeng/calendar';
 
 @Component({
@@ -13,7 +10,7 @@ import { Calendar } from 'primeng/calendar';
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.css']
 })
-export class ReportsComponent implements OnInit {
+export class ReportsComponent {
 
   // Variables Global
 
@@ -42,12 +39,8 @@ export class ReportsComponent implements OnInit {
   @ViewChild('initialDate') initialDate: Calendar;
   @ViewChild('finalDate') finalDate: Calendar;
 
-  constructor(private entryService: EntryService, private categoryService: CategoryService) {
+  constructor(private entryService: EntryService) {
 
-  }
-
-  ngOnInit() {
-    //this.categoryService.getAll().subscribe(categories => this.categories = categories);
   }
 
   generateReports() {
@@ -81,6 +74,8 @@ export class ReportsComponent implements OnInit {
       }
 
     });
+
+    console.log(currencyFormatter.unformat(expenseTotal, { code: 'BRL' }));
 
     this.expenseTotal = currencyFormatter.unformat(expenseTotal, { code: 'BRL' });
     this.reveneuTotal = currencyFormatter.unformat(reveneuTotal, { code: 'BRL' });
