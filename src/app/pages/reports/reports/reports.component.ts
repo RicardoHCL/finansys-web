@@ -94,26 +94,17 @@ export class ReportsComponent implements OnInit {
 
   private getChartData(title: string, color: string, isDespesa: boolean) {
     const chartData = [];
-    let total;
-    this.response.forEach(resp => {
-      const filteredEntries = this.response.filter(
-        resp => resp.despesa == isDespesa
-      );
 
-      if (filteredEntries.length > 0) {
-          total = filteredEntries.reduce(
-          (total, resp) => total + currencyFormatter.unformat(resp.valorPorCategoria, { code: 'BRL' }), 0
-        )      
-        console.log(total);
-          chartData.push({
-            categoryName: resp.categoria.nome,
-            totalAmount: total
-          })    
+    const filteredEntries = this.response.filter(
+      resp => resp.despesa == isDespesa
+    );
 
-      }
+    filteredEntries.forEach(resp => { 
+        chartData.push({
+          categoryName: resp.categoria.nome,
+          totalAmount: resp.valorPorCategoria
+        })
     });
-
-    //console.log(chartData);
 
     return {
       labels: chartData.map(item => item.categoryName),
