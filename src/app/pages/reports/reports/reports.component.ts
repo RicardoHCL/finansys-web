@@ -1,4 +1,4 @@
-import { Component, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { Calendar } from 'primeng/calendar';
 import { Util } from 'src/app/shared/utils/util';
@@ -20,26 +20,34 @@ export class ReportsComponent {
 
   expenseChartData: any;
   reveneuChartData: any;
-  response: any[] = [];  
+  response: any[] = [];
 
   // Especific Methods (Public) 
 
   ptBr = Util.calendarPtBr();
-  
+
   chartOptions = {
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem) {         
+          var data = tooltipItem.value || '';            
+          return Util.formatRealWhitValueZero(data.toString());
+        }
+      }
+    },
     scales: {
       yAxes: [{
         ticks: {
           beginAtZero: true,
-          callback: function(value, index, values) {
+          callback: function (value, index, values) {
             return value > 1 || (values.length < 10) ? Util.formatRealWhitValueZero(value.toString()) : value;
-        }
+          }
         }
       }],
       xAxes: [{
         categoryPercentage: 0.5,
         barPercentage: 0.5
-    }]
+      }]
     }
   }
 
@@ -80,8 +88,8 @@ export class ReportsComponent {
         reveneuTotal += currencyFormatter.unformat(resp.valorPorCategoria, { code: 'BRL' })
       }
 
-    });    
-    
+    });
+
     this.expenseTotal = "R$ " + Util.formatReal(expenseTotal.toString());
     this.reveneuTotal = "R$ " + Util.formatReal(reveneuTotal.toString());
     this.balance = "R$ " + Util.formatReal((reveneuTotal - expenseTotal).toString());
@@ -99,11 +107,11 @@ export class ReportsComponent {
       resp => resp.despesa == isDespesa
     );
 
-    filteredEntries.forEach(resp => { 
-        chartData.push({
-          categoryName: resp.categoria.nome,
-          totalAmount:  resp.valorPorCategoria
-        })
+    filteredEntries.forEach(resp => {
+      chartData.push({
+        categoryName: resp.categoria.nome,
+        totalAmount: resp.valorPorCategoria
+      })
     });
 
     return {
@@ -112,7 +120,7 @@ export class ReportsComponent {
         label: title,
         backgroundColor: color,
         data: chartData.map(item => item.totalAmount)
-      }]      
+      }]
     }
 
   }
