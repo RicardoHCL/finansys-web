@@ -1,9 +1,9 @@
 import { Component, ViewChild} from '@angular/core';
 
+import { Calendar } from 'primeng/calendar';
 import { Util } from 'src/app/shared/utils/util';
 import currencyFormatter from "currency-formatter";
 import { EntryService } from '../../entries/classes/entry.service';
-import { Calendar } from 'primeng/calendar';
 
 @Component({
   selector: 'app-reports',
@@ -73,13 +73,11 @@ export class ReportsComponent {
         reveneuTotal += currencyFormatter.unformat(resp.valorPorCategoria, { code: 'BRL' })
       }
 
-    });
-
-    console.log(currencyFormatter.unformat(expenseTotal, { code: 'BRL' }));
-
-    this.expenseTotal = currencyFormatter.unformat(expenseTotal, { code: 'BRL' });
-    this.reveneuTotal = currencyFormatter.unformat(reveneuTotal, { code: 'BRL' });
-    this.balance = currencyFormatter.unformat(reveneuTotal - expenseTotal, { code: 'BRL' });
+    });    
+    
+    this.expenseTotal = "R$ " + Util.formatReal(expenseTotal.toString());
+    this.reveneuTotal = "R$ " + Util.formatReal(reveneuTotal.toString());
+    this.balance = "R$ " + Util.formatReal((reveneuTotal - expenseTotal).toString());
   }
 
   private setChartData() {
@@ -97,7 +95,7 @@ export class ReportsComponent {
     filteredEntries.forEach(resp => { 
         chartData.push({
           categoryName: resp.categoria.nome,
-          totalAmount: resp.valorPorCategoria
+          totalAmount:  resp.valorPorCategoria
         })
     });
 
