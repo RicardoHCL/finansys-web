@@ -23,8 +23,7 @@ export class ReportsComponent implements OnInit {
 
   expenseChartData: any;
   reveneuChartData: any;
-  categories: Category[] = [];
-  entries: Entry[] = [];
+  response: any[] = [];
 
   // Especific Methods (Public) 
 
@@ -40,32 +39,32 @@ export class ReportsComponent implements OnInit {
     }
   }
 
-   @ViewChild('initialDate') initialDate: Calendar;
-   @ViewChild('finalDate') finalDate: Calendar;
+  @ViewChild('initialDate') initialDate: Calendar;
+  @ViewChild('finalDate') finalDate: Calendar;
 
   constructor(private entryService: EntryService, private categoryService: CategoryService) {
 
   }
 
   ngOnInit() {
-    this.categoryService.getAll().subscribe(categories => this.categories = categories);
+    //this.categoryService.getAll().subscribe(categories => this.categories = categories);
   }
 
-  generateReports() {         
+  generateReports() {
     const initialDate = this.initialDate.inputFieldValue;
     const finalDate = this.finalDate.inputFieldValue;
-    
+
     if (!initialDate || !finalDate) {
       alert("Favor informar o período para gerar os relatórios!")
-    } else {      
+    } else {
       this.entryService.getReportsForPeriods(Util.formatDate(initialDate), Util.formatDate(finalDate)).subscribe(this.setValues.bind(this))
     }
   }
 
   // Especific Methods (Private)
 
-  private setValues(entries: Entry[]) {
-    this.entries = entries;
+  private setValues(response: any) {
+    this.response = response;
     this.calculateBalance();
     this.setChartData();
   }
@@ -74,11 +73,11 @@ export class ReportsComponent implements OnInit {
     let expenseTotal = 0;
     let reveneuTotal = 0;
 
-    this.entries.forEach(entry => {
-      if (entry.despesa) {
-        expenseTotal += currencyFormatter.unformat(entry.valor, { code: 'BRL' })
+    this.response.forEach(resp => {
+      if (resp.despesa) {
+        expenseTotal += currencyFormatter.unformat(resp.valorPorCategoria, { code: 'BRL' })
       } else {
-        reveneuTotal += currencyFormatter.unformat(entry.valor, { code: 'BRL' })
+        reveneuTotal += currencyFormatter.unformat(resp.valorPorCategoria, { code: 'BRL' })
       }
 
     });
@@ -95,30 +94,33 @@ export class ReportsComponent implements OnInit {
 
   private getChartData(title: string, color: string, isDespesa: boolean) {
     const chartData = [];
-
-    this.categories.forEach(categoria => {
-      const filteredEntries = this.entries.filter(
-        entry => (entry.categoriaId == categoria.id) && (entry.despesa ==  isDespesa)
+    let total;
+    this.response.forEach(resp => {
+      const filteredEntries = this.response.filter(
+        resp => resp.despesa == isDespesa
       );
 
       if (filteredEntries.length > 0) {
-        const total = filteredEntries.reduce(
-          (total, entry) => total + currencyFormatter.unformat(entry.valor, { code: 'BRL' }), 0
-        )
+          total = filteredEntries.reduce(
+          (total, resp) => total + currencyFormatter.unformat(resp.valorPorCategoria, { code: 'BRL' }), 0
+        )      
+        console.log(total);
+          chartData.push({
+            categoryName: resp.categoria.nome,
+            totalAmount: total
+          })    
 
-        chartData.push({
-          categoryName: categoria.nome,
-          totalAmount: total
-        })
       }
     });
+
+    //console.log(chartData);
 
     return {
       labels: chartData.map(item => item.categoryName),
       datasets: [{
         label: title,
         backgroundColor: color,
-        data: chartData.map(item => item.valor)
+        data: chartData.map(item => item.totalAmount)
       }]
     }
 

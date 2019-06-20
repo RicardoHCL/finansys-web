@@ -31,15 +31,6 @@ export class Util {
         return date.replace("/", "-").replace("/", "-");
     }
 
-    // Colocar mascara de moeda brasileira R$ X.XXX,XX
-    static formatForCurrency() {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-            minimumFractionDigits: 2,
-        });
-    }
-
     // Configuração para mascara de moeda brasileira para o campo de valor
     static imaskConfig() {
         return {
