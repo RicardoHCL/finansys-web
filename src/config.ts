@@ -1,10 +1,10 @@
 
 export class Config {
     constructor(
-        public production_url = "https://api-financas-prod.herokuapp.com/",
+        public production_url = "https://finansys-api.herokuapp.com/ ",
         public development_url = "http://localhost:8080/",
 
-        private isProduction  = false,   
+        private isProduction  = true,   
     ){}
 
     apiPath(resource: string): string{
