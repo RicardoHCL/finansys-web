@@ -5,3 +5,8 @@ ul {
 .btn-warning, .btn-warning:hover {
     color: white;
   }
+
+  .btn-header { 
+    padding-left: 3%;   
+    display: inline-block;
+  }

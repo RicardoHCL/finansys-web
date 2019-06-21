@@ -1,8 +1,8 @@
 <app-bread-crumb [items]="[{text: 'Lançamentos', link: '/lancamentos'}, {text: pageTitle}]"></app-bread-crumb>
 <app-page-header [page-title]="pageTitle" [buttons]="
      currentAction == 'preview' ?
-     [{text: 'Novo Lançamento', link: '/lancamentos/novo', class: 'btn-primary'},
-      {text: 'Editar Lançamento', link: '/lancamentos/' + getResourceId() + '/editar', class: 'btn-warning'}]
+     [{text: 'Editar Lançamento', link: '/lancamentos/' + getResourceId() + '/editar', class: 'btn-warning'}, 
+     {text: 'Novo Lançamento', link: '/lancamentos/novo', class: 'btn-primary'}]
      : currentAction == 'edit' ? [{text: 'Novo Lançamento', link: '/lancamentos/novo', class: 'btn-primary'}] : null">
 </app-page-header>
 
