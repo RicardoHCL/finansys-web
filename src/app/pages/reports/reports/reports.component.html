@@ -10,17 +10,17 @@
   <div class="card-body">
     <div class="form-row">
 
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-4 date">
         <label for="initialDate" class="mr-3">Data Inicial</label>
         <p-calendar #initialDate id="initialDate" 
-          inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBr" [showButtonBar]="true">
+          inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBr" [showButtonBar]="true" [style]="{'width':'100%'}">
         </p-calendar>        
       </div>
  
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-4 date">
           <label for="finalDate" class="mr-3">Data Final</label>
           <p-calendar #finalDate id="finalDate" 
-            inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBr" [showButtonBar]="true">
+            inputStyleClass="form-control" dataType="string" dateFormat="dd/mm/yy" [locale]="ptBr" [showButtonBar]="true" [style]="{'width':'100%'}">
           </p-calendar>        
         </div>
     </div>
