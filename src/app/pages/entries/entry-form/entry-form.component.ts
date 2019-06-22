@@ -5,11 +5,11 @@ import { Util } from 'src/app/shared/utils/util';
 import { BaseResourceFormComponent } from 'src/app/shared/components/base-form/base-resource-form.component';
 
 import { Entry } from '../classes/entry.model';
-import { Status } from '../classes/status.model';
+import { Status } from '../../status/classes/status.model';
 import { Category } from '../../categories/classes/category.model';
 
 import { EntryService } from '../classes/entry.service';
-import { StatusService } from '../classes/status.service';
+import { StatusService } from '../../status/classes/status.service';
 import { CategoryService } from '../../categories/classes/category.service';
 
 import toastr from "toastr"

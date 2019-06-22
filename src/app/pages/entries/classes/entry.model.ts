@@ -1,7 +1,7 @@
 import { Util } from 'src/app/shared/utils/util';
 import { BaseResourceModel } from 'src/app/shared/models/base-resource.model';
 
-import { Status } from './status.model';
+import { Status } from '../../status/classes/status.model';
 import { Category } from '../../categories/classes/category.model';
 
 export class Entry extends BaseResourceModel{

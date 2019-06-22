@@ -1,3 +1,38 @@
-<p>
-  status-form works!
-</p>
+<app-bread-crumb
+    [items] = "[{text: 'Status', link: '/status'}, {text: pageTitle}]"
+></app-bread-crumb>
+<app-page-header 
+    [page-title] = "pageTitle"
+    [buttons] = "
+     currentAction != 'new' ? [{text: 'Novo Status', link: '/status/novo', class: 'btn-primary'}] : null"
+></app-page-header>
+
+<form [formGroup] = "resourceForm" (submit) = "submitForm()">
+
+        <div class="card mb-4">
+            <div class="card-header">
+                Informações sobre o status
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control" id="nome" formControlName="nome">
+                        
+                        <app-form-field-error [form-control] = "resourceForm.get('nome')" ></app-form-field-error>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="descricao">Descricao</label>
+                        <input type="text" class="form-control" id="descricao" formControlName="descricao">                                               
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <app-server-error-messages [server-error-messages]="serverErrorMessage" ></app-server-error-messages>
+    
+        <button [disabled]="submittingForm || resourceForm.invalid" type="submit"
+            class="btn btn-primary btn-lg float-right ml-2">Salvar</button>
+        <a routerLink="/status" class="btn btn-light btn-lg float-right">Voltar</a>
+    
+    </form>
